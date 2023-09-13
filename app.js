@@ -26,7 +26,7 @@ app.post("/register", async (req,res)=>{
     // aako ko email ko kohi xa ki nae find garnu paryo 
 const emailExist =    await users.findAll({
         where  : {
-            email : email
+            email : email,
         }
     })
     if(emailExist.length > 0 ){
