@@ -23,7 +23,16 @@ app.post("/register", async (req,res)=>{
     const username = req.body.username
     const password = req.body.password
 
-    // validation from server side
+    // aako ko email ko kohi xa ki nae find garnu paryo 
+const emailExist =    await users.findAll({
+        where  : {
+            email : email
+        }
+    })
+    if(emailExist.length > 0 ){
+         res.send("User with that email already registered")
+    }else{
+         // validation from server side
     if(!email || !username || !password){
         return res.send("Please provide email,username,password")
     }
@@ -34,6 +43,9 @@ app.post("/register", async (req,res)=>{
         password:bcrypt.hashSync(password,12)
     })
     res.send("User Registered Successfully")
+    }
+
+   
 
 })
 
