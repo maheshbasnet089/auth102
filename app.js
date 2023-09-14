@@ -23,6 +23,9 @@ app.post("/register", async (req,res)=>{
     const username = req.body.username
     const password = req.body.password
 
+    if(!email || !username || !password){
+        return res.send("Please provide email,username,password")
+    }
     // aako ko email ko kohi xa ki nae find garnu paryo 
 const emailExist =    await users.findAll({
         where  : {
@@ -33,9 +36,6 @@ const emailExist =    await users.findAll({
          res.send("User with that email already registered")
     }else{
          // validation from server side
-    if(!email || !username || !password){
-        return res.send("Please provide email,username,password")
-    }
 
    await  users.create({
         email : email,
