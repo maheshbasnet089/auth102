@@ -42,10 +42,52 @@ const emailExist =    await users.findAll({
         username:username,
         password:bcrypt.hashSync(password,12)
     })
-    res.send("User Registered Successfully")
+    res.redirect("/login")
     }
 
    
+
+})
+
+
+// LOGIN 
+
+app.get("/login",(req,res)=>{
+    res.render("login")
+})
+
+app.post("/login",async (req,res)=>{
+    const email = req.body.email
+    const password = req.body.password
+
+    // 1st- tyo email vayeko kohi hamro users table ma xa ki xainw\
+   const userExists =  await users.findAll({
+        where : {
+            email : email
+        }
+    })
+  if(userExists.length > 0){
+    // 2nd-> password check garnu paryo
+    const isMatch = bcrypt.compareSync(password,userExists[0].password)
+    if(isMatch){
+        res.send("Logged in Sucessfully")
+    }else{
+        res.send("Invalid Email or Password")
+    }
+
+
+  }else{
+    
+    res.send("Invalid Email Or password ")
+
+  }
+
+
+
+
+
+
+
 
 })
 
