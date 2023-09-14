@@ -66,20 +66,21 @@ app.post("/login",async (req,res)=>{
             email : email
         }
     })
+    // const hashedPassword = bcrypt.hashSync(password)
+    // const oldPassword = userExists[0].password
+    // console.log(hashedPassword)
+    // console.log(oldPassword)
+
   if(userExists.length > 0){
     // 2nd-> password check garnu paryo
-    const isMatch = bcrypt.compareSync(password,userExists[0].password)
-    if(isMatch){
-        res.send("Logged in Sucessfully")
-    }else{
-        res.send("Invalid Email or Password")
-    }
-
-
+        const isMatch = bcrypt.compareSync(password,userExists[0].password)
+        if(isMatch){
+            res.send("Logged in Sucessfully")
+        }else{
+            res.send("Invalid Email or Password")
+        }
   }else{
-    
     res.send("Invalid Email Or password ")
-
   }
 
 
